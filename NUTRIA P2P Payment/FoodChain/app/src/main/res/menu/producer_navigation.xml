@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/navigation_product"
+        android:icon="@drawable/star"
+        android:title="@string/history"
+        app:showAsAction="always|withText"
+        />
+    <item
+        android:id="@+id/navigation_scanner"
+        android:icon="@drawable/scan"
+        android:title="@string/scanner"
+        app:showAsAction="always|withText"
+        />
+    <item
+        android:id="@+id/navigation_home"
+        android:icon="@drawable/home"
+        android:title="@string/home"
+        app:showAsAction="always|withText"
+       />
+
+    <item
+        android:id="@+id/navigation_wallet"
+        android:icon="@drawable/wallet"
+        android:title="@string/wallet"
+        app:showAsAction="always|withText"
+        />
+
+    <item
+        android:id="@+id/navigation_setting"
+        android:icon="@drawable/triangle"
+        android:title="@string/setting"
+        app:showAsAction="always|withText"
+        />
+</menu>

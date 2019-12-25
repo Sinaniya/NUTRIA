@@ -1,0 +1,27 @@
+# DATASOURCE (DataSourceAutoConfiguration & DataSourceProperties)
+spring.datasource.url=jdbc:mysql://localhost:3306/food_chain_db?useSSL=false
+spring.datasource.username=xxxxxxxxxxxxxxx
+spring.datasource.password=xxxxxxxxxxxxxxx
+
+# Hibernate
+
+# The SQL dialect makes Hibernate generate better SQL for the chosen database
+spring.jpa.properties.hibernate.dialect = org.hibernate.dialect.MySQL5InnoDBDialect
+
+# Hibernate ddl auto (create, create-drop, validate, update)
+spring.jpa.hibernate.ddl-auto = update
+
+logging.level.org.hibernate.SQL=DEBUG
+logging.level.org.hibernate.type=TRACE
+
+
+spring.jackson.serialization.fail-on-empty-beans=false
+
+
+foodchain.contract.address=xxxxxxxxxxxxxxx
+foodchain.account.privatekey=xxxxxxxxxxxxxxx
+#foodchain.wallet.filepath=xxxxxxxxxxxxxxx
+#foodchain.wallet.password=xxxxxxxxxxxxxxx
+#foodchain.testnetwork.rinkebyClient=https://rinkeby.infura.io/xxxxxxxxxxxxxxx
+
+

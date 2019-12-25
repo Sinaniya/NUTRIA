@@ -1,0 +1,355 @@
+@import 'variables';
+@import 'fonts';
+@import 'login-registration';
+
+body {
+	margin: 0;
+	padding: 0;
+	height: 100%;
+	width: 100%;
+	font-family: 'Roboto', sans-serif;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+  background-color: #292b2c;
+  color: white;
+}
+.oysy-input {
+  background-color: rgb(26, 26, 26);
+  color: white;
+}
+.form-control {
+  background-color: rgb(26, 26, 26);
+  color: white;
+}
+.dropdown-toggle {
+  background-color: rgb(26, 26, 26);
+  color: white;
+}
+.form-control:focus {
+  border-color: $purple-color;
+  background-color: rgb(26, 26, 26);
+  color: white;
+}
+.form-control:disabled, .form-control[readonly] {
+  background-color: rgb(26, 26, 26);
+}
+.spinner {
+  background: none;
+}
+.mainview {
+  background-color: #292b2c !important;
+}
+.modal-content {
+  background-color: #292b2c;
+}
+.btn-secondary.disabled, .btn-secondary:disabled {
+  background-color: rgb(26, 26, 26);
+}
+input:focus {
+  outline: none;
+}
+.btn-primary:hover {
+    border-color: none;
+}
+.box {
+  background-color: #292b2c;
+  border: none;
+}
+.custom-control-input:checked ~ .custom-control-indicator {
+  background-color: $purple-color;
+}
+*::selection {
+	background-color: rgba(21, 172, 67, 0.9);
+	color: white;
+}
+.offline {
+	filter: grayscale(1) !important;
+	opacity: 0.4 !important;
+	&, & * {
+		cursor: not-allowed !important;
+	}
+}
+.oysy-button {
+  margin-bottom: 10px;
+  border-radius: 0px;
+  border-color: #1a1a1a;
+  background-color: #1a1a1a;
+  color: white;
+  font-weight: bold;
+  font-size: 1em;
+  font-size: 1.5em;
+  max-width: 400px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.oysy-button:active {
+  background-color: $purple-color;
+  border-color: none;
+}
+.btn-primary:active, .btn-primary:hover {
+  background-color: $purple-color;
+}
+.oysy-button:focus {
+  border-color: none;
+}
+.btn-primary.disabled, .btn-primary:disabled {
+  background-color: rgb(109, 45, 132);
+}
+.btn-primary:focus, .btn-primary.focus, .btn:focus, .btn.focus {
+  box-shadow: none;
+  -webkit-box-shadow: none;
+  border-color: none;
+}
+
+#toasted-container {
+	.coinblesk-toast {
+		cursor: default;
+		cursor: help;
+		text-shadow: 1px 1px rgba(0,0,0,0.1);
+
+		.fa {
+			margin-right: 10px;
+		}
+
+		&.warning.toasted.primary {
+			background-color: #ec8e00;
+		}
+	}
+
+}
+@media only screen and (max-width: 600px) {
+	#toasted-container .coinblesk-toast.toasted {
+		height: 50px;
+		justify-content: initial;
+	}
+}
+.dropdown-menu .dropdown-item {
+	cursor: default;
+}
+.navbar + * {
+	margin-top: 60px;
+}
+.fa.fa-bitcoin {
+	position: relative;
+	span {
+		position: absolute;
+		top: -1000px;
+		color: rgba(0,0,0,0);
+		text-shadow: none;
+	}
+}
+#nprogress .bar {
+	height: 3px;
+}
+.nowrap,
+.no-wrap {
+	white-space: nowrap;
+}
+.pos-rel {
+	position: relative;
+}
+.alert {
+	font-weight: 300;
+
+	b, strong {
+		font-weight: 400;
+	}
+}
+.badge, .badge-pill {
+	&.badge-very-danger {
+		background-color: #a22e2a;
+		animation: badge-background infinite ease-in-out 3s;
+	}
+	font-weight: 300;
+}
+
+@keyframes badge-background {
+	0%,
+	40%,
+	60% {
+		transform: rotate(0deg);
+	}
+	50% {
+		transform: rotate(5deg);
+	}
+	55% {
+		transform: rotate(-5deg);
+	}
+}
+
+/* flags are imported from npm library 'flag-icon-css' as 4x3 svg icons */
+.flag-icon {
+	background-size: cover;
+	background-position: 50%;
+	position: relative;
+	display: inline-block;
+	width: 1.333333333333333333333333em;
+	line-height: 1em;
+	height: 1em;
+	vertical-align: middle;
+	margin-top: -0.22em;
+
+	&.flag-icon-en,
+	&.flag-icon-gb {
+		background-image: url('../assets/flag-gb.svg');
+	}
+	&.flag-icon-de {
+		background-image: url('../assets/flag-de.svg');
+	}
+
+	&.grey,
+	&.gray {
+		filter: grayscale(100%);
+	}
+}
+
+/* extend bootstrap display-n titles */
+.display-5 {
+	font-size: 2.8rem;
+	font-weight: 300;
+	line-height: 1.2;
+}
+.display-6 {
+	font-size: 2.2rem;
+	font-weight: 300;
+	line-height: 1.2;
+}
+.display-7 {
+	font-size: 1.6rem;
+	font-weight: 300;
+	line-height: 1.2;
+}
+.display-8 {
+	font-size: 1.3rem;
+	font-weight: 300;
+	line-height: 1.2;
+}
+
+/* bootstrap form error's */
+$red-error-input-color: #ff0000c9;
+input[type=text].form-error,
+input[type=password].form-error,
+input[type=email].form-error,
+input[type=number].form-error,
+div.form-error {
+	box-shadow: 0 0 0 1px $red-error-input-color;
+	&:focus {
+		border-color: transparent;
+	}
+}
+.custom-checkbox.form-error {
+	.custom-control-indicator {
+		box-shadow: 0 0 0 1px #fff, 0 0 0 3px $red-error-input-color;
+	}
+}
+
+.popover {
+	box-shadow: 0 0 1em rgba(0,0,0,0.2);
+  background-color: #1a1a1a;
+}
+
+/* some element may need more focus area, because they are too small */
+.increase-focus {
+	position: relative;
+	&:after {
+		content: "";
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		width: 2em;
+		height: 2em;
+		z-index: 1061; /* 1 more than the popover */
+	}
+}
+
+/* class to hide/deactivate button */
+.translucent {
+	opacity: 0.3;
+	filter: grayscale(80%);
+}
+
+.display-1,
+.display-2,
+.display-3,
+.display-4,
+.display-5,
+.display-6,
+.display-7,
+.display-8 {
+	.text-muted {
+		font-weight: 300;
+	}
+}
+
+@media (max-width: 700px) {
+	.display-4 {
+		font-size: 2.5rem;
+	}
+}
+
+.red {
+	color: #d40000;
+}
+.fa {
+	&.fa-green {
+		color: #16a71a;
+	}
+	&.fa-red {
+		color: #d01b1b;
+	}
+}
+.btn {
+	cursor: pointer;
+	&.no-pointer {
+		cursor: default;
+	}
+}
+.btn-primary, .btn-primary.disabled {
+  // background-color: transparent;
+  // color: $green-color;
+  // border-color: $green-color;
+  // border-radius: 1.25em;
+}
+.btn-primary.active, .btn-primary:active, .btn-primary:hover, .show>.btn-primary.dropdown-toggle {
+  // background-color: #992f47;
+  // border-color: #992f47;
+}
+
+
+.key,
+.short-key,
+.short-key-extended {
+	width: 6em;
+	text-overflow: ellipsis;
+	display: inline-block;
+	white-space: nowrap;
+	overflow: hidden;
+	font-family: 'Roboto', sans-serif;
+}
+.short-key-extended {
+	width: 9em;
+}
+.key {
+	width: auto;
+}
+.mono {
+	font-family: "Roboto", sans-serif;
+}
+
+.compact {
+	margin-top: 50px;
+	margin-bottom: 50px;
+	margin-left: 47px;
+	margin-right: 40px;
+  background-color: #292b2c;
+
+}
+@media (max-width: $breakpoint-hide-header) {
+	.compact {
+		margin-left: 17px;
+		margin-right: 17px;
+		margin-top: 40px;
+		margin-bottom: 22px;
+	}
+}

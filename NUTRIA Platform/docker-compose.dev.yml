@@ -1,0 +1,36 @@
+version: '3'
+
+services:
+
+  fc-web-client:
+    restart: on-failure
+    build:
+      dockerfile: Dockerfile.dev
+      context: ./fc-web-client
+    container_name: fc-web-client-dev
+    volumes:
+      - /app/node_modules
+      - ./fc-web-client:/app
+
+  fc-nginx:
+    restart: on-failure
+    build:
+      dockerfile: Dockerfile.dev
+      context: ./fc-nginx/dev
+    container_name: fc-nginx-dev
+    ports:
+      - 8443:80
+    depends_on:
+      - fc-server
+      - fc-web-client
+
+  fc-server:
+    restart: on-failure
+    build:
+      dockerfile: Dockerfile.dev
+      context: ./fc-server
+    container_name: fc-server-dev
+    env_file:
+      - Env/fc-server-dev.env
+
+# run command:  docker-compose -f docker-compose.dev.yml up --build

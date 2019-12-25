@@ -1,0 +1,846 @@
+<template>
+  <div class="user-send">
+    <div class="compact">
+      <h1 class="display-4">{{ Translation.t('userSend.title') }}</h1>
+      <hr>
+      <div class="pos-rel user-send-content">
+        <spinner :is-loading="isLoading"></spinner>
+        <div v-if="successfulTransaction">
+          <div class="alert alert-success">{{ Translation.t('userSend.transactionSuccessful') }}</div>
+        </div>
+        <div v-else>
+          <div class="box-wrapper" v-if="!isLoading && !loadingError">
+            <div class="box">
+              <form>
+                <b-form-fieldset>
+                  <label class="col-form-label" for="send-receiver">
+                    {{ Translation.t('userSend.receiver') }}
+                    <b-popover :triggers="['hover']" :content="Translation.t('userSend.receiverDescription')" class="popover-element">
+                      <i class="fa fa-info-circle increase-focus"></i>
+                    </b-popover>
+                  </label>
+                  <div class="pos-rel">
+                    <b-form-input id="send-receiver" v-model="address" type="text" class="address-input" :placeholder="Translation.t('userSend.receiverPlaceholder')" :class="{ 'form-error': formIsTouched && !validAddress }"></b-form-input>
+                    <!-- <span
+                    class="nfc"
+                    :class="{ unsupported: !nfc.NFCSupported  }"
+                    @click="openNFC"
+                    :title="Translation.t('userSend.openNFCTitle')">
+                    <i class="fa fa-rss"></i>
+                  </span>
+                  <span class="camera" @click="openCamera" :title="Translation.t('userSend.openCameraTitle')">
+                    <i class="fa fa-camera"></i>
+                  </span> -->
+
+                  <div class="nfc-screen" :class="{'shown': nfc.NFCShown}" @click="closeNFC">
+                    <div class="close" @click="closeNFC">&times;</div>
+                    <div class="nfc-title" @click.stop>
+                      <i class="fa fa-rss"></i>
+                      {{ Translation.t('userSend.NFCTitle') }}
+                    </div>
+
+                    <div class="nfc-notice">{{ Translation.t('userSend.NFCNotice') }}
+                      <div class="nfc-status-wrapper">
+                        <svg :class="{'nfc-watch-active': nfc.NFCWatching, 'nfc-watch-success': nfc.NFCSuccess}" xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 18H4V4h16v16zM18 6h-5c-1.1 0-2 .9-2 2v2.28c-.6.35-1 .98-1 1.72 0 1.1.9 2 2 2s2-.9 2-2c0-.74-.4-1.38-1-1.72V8h3v8H8V8h2V6H6v12h12V6z"/></svg>
+
+                      </div>
+                      <div class="nfc-status">
+                        {{ nfc.NFCStatus }}
+                      </div>
+                    </div>
+                    <div class="video-wrapper" @click.stop>
+                      <video></video>
+                    </div>
+                  </div>
+				  
+                  <div class="camera-screen" :class="{'shown':cameraShown}" @click="closeCamera">
+                    <div class="close" @click="closeCamera">&times;</div>
+                    <div class="camera-title" @click.stop>
+                      <i class="fa fa-qrcode"></i>
+                      {{ Translation.t('userSend.cameraTitle') }}
+                    </div>
+                    <div class="camera-notice">{{ Translation.t('userSend.cameraNotice') }}</div>
+                    <div class="video-wrapper" @click.stop>
+                      <video></video>
+                    </div>
+                  </div>
+                </div>
+              </b-form-fieldset>
+              <div class="row">
+                <div class="col-md-12">
+                  <b-button class="submit-button oysy-button transferbutton" :block="true" variant="primary" :disabled="formIsTouched && !validForm || false">
+                    <span @click="openCamera" :title="Translation.t('userSend.openCameraTitle')">
+                      <i class="oysyicon">g</i>
+                    </span>
+                </b-button>
+                <b-button class="submit-button oysy-button transferbutton" :block="true" variant="primary" :disabled="formIsTouched && !validForm || false">
+                  <span
+                  :class="{ unsupported: !nfc.NFCSupported  }"
+                  @click="openNFC"
+                  :title="Translation.t('userSend.openNFCTitle')">
+                    <i class="oysyicon">j</i>
+                  </span>
+                </b-button>
+              </div>
+            </div>
+            <hr>
+
+            <div class="row">
+              <div class="col-md-12">
+                <b-form-fieldset :label="Translation.t('userSend.amount')">
+                  <b-input-group>
+                    <b-form-input v-model="amount" class="mono amount-input" type="number" min="0" :class="{ 'form-error': formIsTouched && !validAmount }"></b-form-input>
+                  </b-input-group>
+                </b-form-fieldset>
+              </div>
+              <!-- <div class="col-12">
+              <b-form-fieldset>
+              <label class="col-form-label" for="selection">{{ Translation.t('userSend.accountUsed') }}
+              <b-popover :triggers="['hover']" :content="Translation.t('userSend.accountUsedDescription')" class="popover-element">
+              <i class="fa fa-info-circle increase-focus"></i>
+            </b-popover>
+          </label>
+          <div class="pos-rel">
+          <b-input-group-button class="accountSelectionWrap">
+          <b-dropdown dropup :disabled="!multipleAccountsConfigured" id="account-selection" :text="formatBazoAccount(selectedAccount) || formatBazoAccount(defaultBazoAccount) " variant="default">
+          <b-dropdown-item v-for="bazoAccount in bazoAccounts" @click="selectedAccount = bazoAccount" :key="bazoAccount">
+          <span class="currency">{{ formatBazoAccount(bazoAccount) }}</span>
+          <i class="fa fa-check" v-if="bazoAccount === selectedAccount || (selectedAccount === '' && bazoAccount === defaultBazoAccount )"></i>
+        </b-dropdown-item>
+      </b-dropdown>
+    </b-input-group-button slot="right">
+  </div>
+</b-form-fieldset>
+</div> -->
+<div class="col-12">
+  <div class="description-forex-rate" v-html="Translation.t('userSend.descriptionForexRate', { forex: forexRates[selectedCurrency].rate, currency: selectedCurrency })" v-if="selectedCurrency !== 'Bazo'"></div>
+  <hr>
+</div>
+<div class="fees-included">
+  <label>
+    <b-form-checkbox v-model="feesIncluded">{{ Translation.t('userSend.feesIncluded') }}
+      <b-popover :triggers="['hover']" :content="Translation.t('userSend.feesIncludedDescription')" class="popover-element">
+        <i class="fa fa-info-circle increase-focus"></i>
+      </b-popover>
+    </b-form-checkbox>
+  </label>
+</div>
+<div class="col-12">
+  <b-button class="submit-button oysy-button" :block="true" variant="primary" @click.prevent="submitPreparation" :disabled="formIsTouched && !validForm || false">{{ Translation.t('userSend.button', { amount: btcAmount }) }}</b-button>
+</div>
+</div>
+</form>
+</div>
+<user-transfer @remove-transaction-data="resetAllTransactionData"  :transactionHash="this.transaction.hash" :amount="feesIncluded ? Number(this.amount) : Number(this.amount) + Number(this.currentFee)"></user-transfer>
+</div>
+</div>
+</div>
+</div>
+</div>
+</template>
+
+<script>
+import UtilService from '@/services/UtilService';
+import HttpService from '@/services/HttpService';
+import UserTransfer from '@/components/auth/user/UserTransfer';
+import Spinner from '@/components/Spinner';
+import URIScheme from '@/services/URIScheme'
+import Translation from '@/config/Translation';
+import abi from '@/config/abi';
+import Tx from 'ethereumjs-tx';
+
+export default {
+  name: 'user-send',
+  data: function () {
+    return {
+      isLoading: true,
+      loadingError: false,
+      qrScanner: null,
+      cameraShown: false,
+      nfc: {
+        NFCStatus: 'not watching..',
+        NFCWatching: false,
+        NFCSuccess: false,
+        NFCShown: false,
+        NFCSupported: false
+      },
+      transaction: {
+        hash: null
+      },
+      selectedCurrency: 'Bazo',
+      allowedCurrencies: ['Bazo', 'USD', 'EUR', 'CHF'],
+      selectedAccount: '',
+      amount: 0,
+      posid: '',
+      feesIncluded: true,
+      currentFee: 1,
+      address: '',
+      formIsTouched: false,
+      successfulTransaction: false,
+      currentTransaction: {},
+      Translation: Translation
+    }
+  },
+  components: {
+    Spinner,
+    UserTransfer
+  },
+  computed: {
+    bazoAccounts: function () {
+      return this.$store.getters.bazoAccounts;
+    },
+    defaultBazoAccount: function () {
+      return this.bazoAccounts.find(function (bazoaccount) {
+        return bazoaccount.isPrime;
+      })
+    },
+    accountsConfigured: function () {
+      return this.bazoAccounts.length > 0;
+    },
+    multipleAccountsConfigured: function () {
+      return this.bazoAccounts.length > 1;
+    },
+    usingCustomHost: function () {
+      return this.$store.getters.useCustomHost === 'true';
+    },
+    customURLUsed: function () {
+      if (this.usingCustomHost) {
+        return this.$store.getters.customURL;
+      } return null;
+    },
+    btcAmount: function () {
+      if (!this.amount) {
+        return 0;
+      }
+      let value = 0;
+      if (this.selectedCurrency !== 'Bazo') {
+        value = (this.amount / this.forexRates[this.selectedCurrency].rate);
+      } else {
+        value = this.amount;
+      }
+      return Math.round(value * UtilService.SATOSHI_PER_BITCOIN) / UtilService.SATOSHI_PER_BITCOIN;
+    },
+    validAmount: function () {
+      if (this.amount <= 0) {
+        return false;
+      }
+      if (this.maximumAmountExceeded) {
+        return false;
+      }
+      return true;
+    },
+    maximumAmount: function () {
+      let account = this.selectedAccount ? this.selectedAccount : this.defaultBazoAccount;
+
+      if (!this.accountsConfigured) {
+        return 0;
+      }
+      return account.balance;
+    },
+    maximumAmountExceeded: function () {
+      return this.amount > this.maximumAmount;
+    },
+    addressIsEmail: function () {
+      if (this.address === '') {
+        return false;
+      }
+      return UtilService.EMAIL_REGEX.test(this.address);
+    },
+    addressIsBitcoin: function () {
+      if (this.address === '') {
+        return false;
+      }
+      let result = false;
+      try {
+        result = true;
+      } catch (e) {
+        result = false;
+      }
+      return result;
+    },
+    validAddress: function () {
+      const isHex = (hexString) => {
+        let pattern = /^[a-fA-F0-9]+$/
+        return pattern.test(hexString)
+      }
+
+      return isHex(this.address) && (this.address.length >= 127)
+    },
+	validPrivateKey: function () {
+      if(this.privateKey === ''){
+	      return false;
+	  }
+	  return true ;
+    },
+    validForm: function () {
+      return this.validAmount && this.validAddress;
+    }
+  },
+  methods: {
+    loadInitialData: function () {
+	/**
+      return Promise.all([
+        HttpService.queryTransactionAmount()
+      ]).then(responses => {
+        try {
+          const ipNumbers = responses[0].body.origin.split('.').join('')
+          const randIndex = Math.floor(Math.random() * ipNumbers.length) + 1
+          this.amount = ipNumbers[randIndex];
+        } catch (e) {
+          this.amount = 0
+        }
+        this.loadingError = false;
+        this.isLoading = false;
+      }, () => {
+        this.loadingError = true;
+        this.isLoading = false;
+      });
+	  */
+    },
+    parseProps: function () {
+	  /**
+      const paymentinfo = this.$route.query.paymentinfo;
+      if (paymentinfo) {
+        try {
+          const decodedContent = URIScheme.decode(paymentinfo);
+          this.address = decodedContent.address;
+          if (decodedContent.options.amount) {
+            this.amount = decodedContent.options.amount;
+          }
+        } catch (e) {
+          this.address = paymentinfo;
+        }
+      }
+      const startQr = this.$route.query.qr
+      if (startQr === 'true' || startQr === true) {
+        let that = this
+        this.isLoading = true
+        setTimeout(function () {
+          that.openCamera();
+        }, 1000)
+      }
+      const posid = this.$route.query.posid;
+      if (posid) {
+        this.posid = posid;
+        HttpService.queryTransactionAmount().then((response) => {
+          // TODO implement actual querying of transaction amount.
+          try {
+            const ipNumbers = response.body.origin.split('.').join('')
+            const randIndex = Math.floor(Math.random() * ipNumbers.length) + 1
+            const res = ipNumbers[randIndex].toString() + this.posid;
+            if (res && Number(res)) {
+              this.amount = res;
+            } else {
+              this.amount = 0;
+              this.$toasted.global.warn(Translation.t('userSend.amountQueryError'));
+            }
+            this.isLoading = false;
+            this.loadingError = false;
+          } catch (e) {
+            this.isLoading = false;
+            this.loadingError = false;
+            this.amount = 0
+            this.$toasted.global.warn(Translation.t('userSend.amountQueryError'));
+          }
+        }).catch(() => {
+          this.isLoading = false
+          this.loadingError = true
+        })
+      } else {
+        this.posid = '';
+        this.isLoading = false;
+        this.loadingError = false;
+      }
+	  */
+	  this.posid = '';
+      this.isLoading = false;
+      this.loadingError = false;
+    },
+    parseDecodedUrlPayment: function (decodedPaymentInfo) {
+      this.address = decodedPaymentInfo.bazoaddress;
+      this.amount = decodedPaymentInfo.amount;
+      if (decodedPaymentInfo.posid) {
+        HttpService.queryTransactionAmount().then((response) => {
+          try {
+            const ipNumbers = response.body.origin.split('.').join('')
+            const randIndex = Math.floor(Math.random() * ipNumbers.length) + 1
+            const res = ipNumbers[randIndex].toString() + decodedPaymentInfo.posid;
+            this.amount = res;
+          } catch (e) {
+            this.amount = 0
+          }
+        })
+      }
+    },
+    resetTransactionData: function () {
+      this.transaction.hash = null;
+      this.amount = 0;
+      this.posid = '';
+      this.address = '';
+    },
+    resetAllTransactionData: function () {
+      this.amount = 0;
+      this.posid = '';
+      this.address = '';
+      this.formIsTouched = false;
+      this.resetTransactionData();
+    },
+    checkNFCSupport: function () {
+      if ('nfc' in navigator) {
+        this.nfc.NFCSupported = true;
+      } else {
+        this.nfc.NFCSupported = false;
+      }
+    },
+    openNFC: function () {
+      if (this.nfc.NFCSupported) {
+        this.nfc.NFCShown = true;
+        this.startWatchingNFC();
+      } else {
+        this.nfc.NFCShown = false;
+        this.$toasted.global.warn(Translation.t('userSend.NFCNotSupported'));
+      }
+    },
+    closeNFC: function () {
+      this.nfc.NFCShown = false;
+      this.nfc.NFCWatching = false;
+      this.nfc.NFCSuccess = false;
+      try {
+        navigator.nfc.cancelWatch();
+      } catch (e) {
+        console.log(e);
+      }
+    },
+    startWatchingNFC: function () {
+      if (this.nfc.NFCSupported) {
+        navigator.nfc.watch((message) => {
+          this.nfc.NFCWatching = false;
+          this.nfc.NFCSuccess = true;
+
+          var paymentinfo = '';
+          paymentinfo = message.records[0].data;
+
+          if (paymentinfo.length > 0) {
+            try {
+              let result = UtilService.decodeFromCompleteURI(paymentinfo);
+              if (result) {
+                this.parseDecodedUrlPayment(result);
+              } else {
+                console.log('Unable to decode from complete URI.');
+                this.address = paymentinfo;
+              }
+            } catch (e) {
+              this.address = paymentinfo;
+            }
+          } else {
+            this.address = paymentinfo;
+          }
+          setTimeout(() => {
+            this.closeNFC();
+          }, 500);
+        }).then(() => {
+          this.nfc.NFCWatching = true;
+          this.nfc.NFCStatus = 'Started watching NFC tags..'
+        }).catch((error) => {
+          this.nfc.NFCWatching = false;
+          this.nfc.NFCSuccess = false;
+          if (error.code === 9) {
+            this.nfc.NFCStatus = 'Your device or browser does not support the operation..';
+            this.nfc.NFCSupported = false;
+            setTimeout(() => {
+              this.closeNFC();
+            }, 2000)
+          } else if (error.code === 1000) {
+            this.nfc.NFCStatus = 'The operation was not successfull.. Retry?'
+          } else {
+            this.nfc.NFCStatus = 'Error encountered: ' + error.toString() + error.code;
+          }
+        });
+      }
+    },
+    openCamera: function () {
+      this.qrScanner = new window.Instascan.Scanner({
+        video: this.$el.querySelector('.camera-screen video'),
+        mirror: false
+      });
+      this.qrScanner.addListener('scan', (content) => {
+        if (content.length > 0) {
+          try {
+            let result = UtilService.decodeFromCompleteURI(content);
+            if (result) {
+              this.parseDecodedUrlPayment(result);
+            } else {
+              console.log('Unable to decode from complete URI.');
+              this.address = content;
+            }
+          } catch (e) {
+            this.address = content;
+          }
+        } else {
+          this.address = content;
+        }
+        this.closeCamera();
+      });
+      window.Instascan.Camera.getCameras().then((cameras) => {
+        if (cameras.length > 0) {
+          let cameraUsed = cameras.length === 2 ? cameras[1] : cameras[0];
+          this.qrScanner.start(cameraUsed);
+          this.isLoading = false;
+
+          this.cameraShown = true;
+        } else {
+          this.$toasted.global.warn(Translation.t('userSend.cameraError'));
+          this.closeCamera();
+          console.warn('no cameras found');
+        }
+      }, (error) => {
+        this.$toasted.global.warn(Translation.t('userSend.cameraError'));
+        this.closeCamera();
+        console.warn('error occurred:', error);
+      });
+    },
+    closeCamera: function () {
+      if (this.qrScanner !== null) {
+        this.qrScanner.stop();
+        this.qrScanner = null;
+      }
+      this.cameraShown = false;
+    },
+    formatBazoAccount: function (account) {
+      if (account) {
+        return `${account.bazoname} (${account.bazoaddress.slice(0, 5)}..${account.bazoaddress.slice(-5)})`
+      }
+      return false;
+    },
+    triggerBalanceUpdate (silent) {
+      this.$store.dispatch('updateUserBalance',
+      { url: this.customURLUsed,
+        silent: silent
+      });
+    },
+    submitPreparation: function () {
+
+        this.formIsTouched = true;
+        let that = this;
+	  
+		this.isLoading = true;
+        
+		//Infura HttpProvider Endpoint
+        var web3 = new Web3(new Web3.providers.HttpProvider("https://rinkeby.infura.io/v3/b111a8b5430544489d8e8639a8b977c9"));
+		
+		var myAddress = this.selectedAccount.bazoaddress || this.defaultBazoAccount.bazoaddress;
+        var privateKey = new Buffer(this.selectedAccount.privateKey || this.defaultBazoAccount.privateKey, 'hex');
+        var toAddress = this.address;
+		
+		var amount = this.amount ;
+		
+        var count;
+        // get transaction count, later will used as nonce
+        web3.eth.getTransactionCount(myAddress).then(function(v){
+            console.log("Count: "+v);
+            count = v;
+            //creating raw tranaction
+            var rawTransaction = {
+			                      "from":myAddress,
+								  "gasPrice":web3.utils.toHex(20* 1e9),
+								  "gasLimit":web3.utils.toHex(210000),
+								  "to":toAddress,
+								  "value":web3.utils.toHex(web3.utils.toWei(amount, 'ether')),
+								  "nonce":web3.utils.toHex(count)
+								  }
+
+            //creating tranaction via ethereumjs-tx
+            var transaction = new Tx(rawTransaction);
+            //signing transaction with private key
+            transaction.sign(privateKey);
+            //sending transacton via web3js module
+            web3.eth.sendSignedTransaction('0x'+transaction.serialize().toString('hex'), function(err, result) {
+                if (err){
+				    that.isLoading = false;
+                    that.resetTransactionData();
+                    that.$toasted.global.warn(Translation.t('userSend.preparationError'));
+					console.log('error', err);
+					return;
+				} 
+                console.log('sent', result)
+				
+				//begin transaction logging..
+                that.$store.dispatch('updateTransactions', {
+                    amount: amount,
+                    address: toAddress,
+				    sender: that.selectedAccount.bazoaddress || that.defaultBazoAccount.bazoaddress,
+				    hash: result
+                }).then(() => {
+                        that.$router.push('/transactions');
+                }).catch(() => {
+				    that.isLoading = false;
+                    that.resetTransactionData();
+                    that.$toasted.global.warn(Translation.t('userSend.preparationError'));
+				});
+				
+			});
+            
+			//end infura ethereum functions
+			
+			
+	    }).catch(() => {
+			that.isLoading = false;
+            that.resetTransactionData();
+            that.$toasted.global.warn(Translation.t('userSend.preparationError'));
+		});
+    },
+    setupInstaScanLib: function () {
+	  if(typeof Instascan != 'object'){
+	    var instascanlib = document.createElement('script');
+		instascanlib.type = 'text/javascript';
+		// This is a fork of the v1.0 of the instascan library, patched for iOS devices!
+		instascanlib.src = '/static/instascan.min.js';
+		document.body.appendChild(instascanlib);
+	  }
+      
+    }
+  },
+  mounted: function () {
+    this.isLoading = true;
+	//commented out the http chink of parseProps to prevent error..
+	this.parseProps();
+	/** commented this out to remove the http errors
+	this.triggerBalanceUpdate(false);
+	*/
+    this.checkNFCSupport();
+    this.setupInstaScanLib();
+  },
+  created() {
+    if(typeof Web3 != 'object'){
+	  let web3 = document.createElement('script');
+	  web3.setAttribute('src',"//cdn.jsdelivr.net/gh/ethereum/web3.js@1.0.0-beta.34/dist/web3.min.js");
+	  document.body.appendChild(web3);document.body.appendChild(web3);
+	}    
+  }
+};
+</script>
+
+<style lang="scss" scoped>
+@import '../../../styles/variables';
+
+.user-send {
+  .transferbutton {
+    height: 80px;
+    width: 80px;
+    margin: 0px 10px 0px 0px;
+    float: left;
+  }
+  .submit-button {
+    max-width: none !important;
+  }
+  .oysyicon {
+    font-family: oysy;
+    font-style: normal;
+    font-size: 1.3em;
+  }
+  .user-send-content {
+    min-height: 300px;
+  }
+  .box-wrapper {
+    max-width: 650px;
+    padding-top: 20px;
+    .box {
+      width: 100%;
+      background: #292b2c;
+      padding: 20px;
+      .main-title {
+        text-align: center;
+      }
+    }
+  }
+
+  .fa.fa-info-circle {
+    cursor: help;
+  }
+  .popover-element {
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: 5px;
+    .fa-info-circle {
+      color: #999;
+    }
+  }
+  .camera, .nfc {
+    font-size: 16px;
+    position: absolute;
+    right: 0;
+    z-index: 99;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    padding: 7px 6px;
+  }
+  .nfc {
+    right: 30px;
+  }
+  .nfc-status-wrapper {
+    svg {
+      fill: $purple-color;
+      margin: 20px;
+      height: 100px;
+    }
+    .nfc-watch-active {
+      animation: roll 3s infinite forwards;
+      transform: rotate(30deg);
+    }
+    .nfc-watch-success {
+      fill: green;
+    }
+  }
+  .unsupported{
+    opacity: 0.3;
+    cursor: not-allowed;
+  }
+  .camera-screen, .nfc-screen, .bt-screen {
+    position: fixed;
+    padding: 20px;
+    background: rgba(0,0,0,0.9);
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 999999;
+    opacity: 0;
+    visibility: hidden;
+    transition: 0.25s ease all;
+    &.shown {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .camera-notice, .nfc-notice, .bt-notice {
+      color: white;
+      font-size: 18px;
+      font-weight: 300;
+      text-align: center;
+      display: block;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 70vmin;
+      max-height: calc(100vh - 40px);
+      overflow: hidden;
+    }
+    .camera-title, .nfc-title, .bt-title {
+      position: absolute;
+      bottom: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 30px;
+      color: white;
+      font-weight: 300;
+      text-shadow: 1px 1px 6px rgba(0,0,0,0.8);
+      text-align: center;
+      width: 90vw;
+      z-index: 9999998;
+    }
+    .close {
+      color: rgba(255, 255, 255, 0.91);
+      font-size: 70px;
+      z-index: 9999999;
+      position: absolute;
+      font-weight: 400;
+      top: 10px;
+      right: 15px;
+      text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.63);
+      opacity: 1;
+    }
+
+    .video-wrapper {
+      transform: translate(-50%, -50%);
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      padding: 25px;
+      video {
+        width: calc(100vw - 50px);
+        height: calc(100vh - 50px);
+      }
+    }
+  }
+  .form-control.mono {
+    font-size: 15px;
+  }
+  .form-group {
+    margin-bottom: 10px;
+  }
+  .address-input,
+  .amount-input {
+    position: relative;
+    z-index: 10;
+  }
+  .address-input {
+    padding-right: 70px;
+  }
+  .description-forex-rate {
+    margin-top: 6px;
+    margin-left: 5px;
+    padding-left: 10px;
+    border-left: 2px solid #888;
+    font-size: 14px;
+    padding-bottom: 3px;
+    padding-top: 3px;
+    font-style: italic;
+  }
+  .description-fees {
+    font-size: 90%;
+  }
+  .fees-included {
+    text-align: center;
+    width: 100%;
+
+    label {
+      display: inline-block;
+    }
+  }
+  /deep/ {
+    .dropdown-item.active {
+      background-color: $purple-color;
+    }
+    .active:focus {
+      outline: none;
+    }
+    .dropdown-item {
+      cursor: pointer;
+
+      .currency + .fa-check {
+        font-size: 60%;
+        display: inline-block;
+        vertical-align: middle;
+        margin-left: 5px;
+        margin-top: -1px;
+      }
+    }
+    .input-group-btn .btn {
+      // background: white;
+      border: 1px solid rgba(0,0,0,0.15);
+      color: inherit;
+      font-size: 15px;
+
+      .fa {
+        font-size: 85%;
+        margin-top: -1px;
+      }
+    }
+  }
+}
+@media (max-width: $breakpoint-hide-header) {
+  .user-send .camera-screen .camera-title {
+    font-size: 24px;
+  }
+}
+@keyframes roll {
+  0% {
+    transform: rotate(0);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+</style>

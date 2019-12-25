@@ -1,0 +1,24 @@
+# Enabling H2 Console: http://localhost:8080/h2-console
+spring:
+  profiles:
+    active: dev
+  h2:
+    console:
+      enabled: true
+      path: /api/v1/h2-console
+  datasource:
+    url: jdbc:h2:mem:fc-testdb
+    driver-class-name: org.h2.Driver
+    username: fc-user
+    password: fc-pass
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+
+foodchain:
+  contract:
+    address: ''
+  account:
+    privatekey: ''
+  web3j:
+    httpservice:
+      url: http://127.0.0.1

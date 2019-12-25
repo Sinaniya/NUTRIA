@@ -1,0 +1,70 @@
+@import 'variables';
+
+.login-registration {
+	display: flex;
+	margin: 0;
+	width: 100%;
+	min-height: 100vh;
+	align-items: center;
+	justify-content: center;
+	/* height with navbar: 
+	height: calc(100vh - #{$navbarHeight}); */
+	
+	.logo {
+		width: 70%;
+		margin: 0 auto 8vmin;
+		display: block;
+	}
+	
+	.form-box {
+		padding: 20px;
+		background: #efefef;
+		border-radius: 5px;
+		width: 400px;
+		box-shadow: 0 0 5em rgba(0,0,0,0.4);
+		max-width: 100%;
+		&.large {
+			width: $breakpoint-hide-header;
+		}
+	}
+	
+	.main-title {
+		text-align: center;
+		margin-bottom: 20px;
+	}
+	
+	.form-group {
+		margin-bottom: 5px;
+	}
+	
+	.btn.btn-primary {
+		margin-top: 25px;
+		cursor: pointer;
+	}
+	.links-below {
+		text-align: right;
+		margin-top: 20px;
+		font-size: 85%;
+		&:after {
+			content: "";
+			display: block;
+			clear: both;
+		}
+		:first-child {
+			float: left;
+		}
+		:last-child {
+			float: right;
+		}
+	}
+}
+
+@media (max-width: $breakpoint-hide-header) {
+	.login-registration {
+		.form-box {
+			&, &.large {
+				width: 100%;
+			}
+		}
+	}
+}

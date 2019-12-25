@@ -1,0 +1,55 @@
+version: '3'
+services:
+
+  fc-db-vm:
+    image: mysql:8.0.13
+    container_name: fc-db-vm
+    environment:
+      MYSQL_ROOT_PASSWORD: food_chain_password
+      MYSQL_DATABASE: food_chain_db
+      MYSQL_USER: food_chain_user
+      MYSQL_PASSWORD: food_chain_password
+    volumes:
+      - /var/lib/fc-mysql-data:/var/lib/mysql
+    ports:
+      - 3306:3306
+    restart: always
+
+  fc-web-client-vm:
+    container_name: fc-web-client-vm
+    build:
+      dockerfile: Dockerfile
+      context: ./fc-web-client
+    volumes:
+      - /app/node_modules
+      - ./fc-web-client:/app
+      - /opt/volumes/fc-web-client-logs/log:/var/log/nginx
+    restart: always
+
+  fc-server-vm:
+    container_name: fc-server-vm
+    restart: always
+    build:
+      dockerfile: Dockerfile
+      context: ./fc-server
+    env_file:
+      - Env/fc-server-vm.env
+    depends_on:
+      - fc-db-vm
+
+  fc-proxy-vm:
+    container_name: fc-proxy-vm
+    restart: always
+    build:
+      dockerfile: Dockerfile
+      context: ./fc-nginx/vm
+    volumes:
+      - /opt/volumes/fc-proxy-logs/log:/var/log/nginx
+    ports:
+      - 80:80
+      - 443:443
+    depends_on:
+      - fc-server-vm
+      - fc-web-client-vm
+
+# run command: docker-compose -f docker-compose.vm.yml up --build

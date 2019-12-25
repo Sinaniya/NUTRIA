@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="300sp"
+    android:layout_height="160sp"
+    android:layout_gravity="center"
+    android:gravity="center"
+    android:orientation="vertical">
+
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/error"
+        android:textStyle="bold"
+        android:textColor="@color/colorPrimary"
+        android:textSize="17sp"
+        android:layout_marginBottom="20sp"
+        android:layout_gravity="center"/>
+
+
+        <TextView
+            android:id="@+id/tvErroMsg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/certificateName"
+            android:textStyle="normal"
+            android:textSize="16sp"
+            android:layout_marginBottom="10sp"
+            android:layout_gravity="center"
+            android:textColor="@color/black"
+            />
+
+    <Button
+        android:id="@+id/btnOk"
+        android:layout_width="100sp"
+        android:layout_height="30sp"
+        android:background="@drawable/btn_blue"
+        android:text="@string/ok"
+        android:textColor="@color/white"
+        android:layout_gravity="center"
+        android:layout_marginTop="15sp"
+        android:gravity="center"/>
+
+</LinearLayout>

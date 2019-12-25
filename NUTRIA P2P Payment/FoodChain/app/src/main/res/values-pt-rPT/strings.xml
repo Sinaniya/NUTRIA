@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+        <string name="app_name">Food Chain</string>
+        <string name="producer">Produtores</string>
+        <string name="transporter">Transportadores</string>
+        <string name="intermediaries"> Intermediários</string>
+        <string name="newProducer">Novo Produtor</string>
+        <string name="producerName">Nome do Produtor</string>
+        <string name="producerCertificate">Certificado do Produtor</string>
+        <string name="username">Usuário do Produtor</string>
+        <string name="passwd">Senha</string>
+        <string name="account">Conta Ethereum</string>
+        <string name="action">Todas as Ações</string>
+        <string name="certificate">Todos os Certificados</string>
+        <string name="website">Website</string>
+        <string name="licences">Licenças</string>
+        <string name="otherLicenses">Outras Licenças</string>
+        <string name="enterList">Digitar a Lista</string>
+        <string name="createLicencse">Criar Licença</string>
+        <string name="createAction">Criar Ação</string>
+        <string name="certificateName">Nome do Certificado</string>
+        <string name="processAction">Processos e Ações</string>
+        <string name="cancel">Cancelar</string>
+        <string name="editLicense">Editar Licenças</string>
+        <string name="done">Concluído</string>
+        <string name="productTag">Tags de Produto</string>
+        <string name="newProductTag">Nova Tag de Produto</string>
+        <string name="selectProcess">Selecionar Processos e Ações </string>
+        <string name="printQR">Imprimir QR code</string>
+        <string name="readQR">Ler QR code</string>
+        <string name="generateQr">Gerar QR</string>
+        <string name="New">Nova</string>
+        <string name="date">Data</string>
+        <string name="product">Produto</string>
+        <string name="scanner"> Escâner</string>
+        <string name="home">Página Inicial</string>
+        <string name="setting">Configurações</string>
+        <string name="logout">Sair</string>
+        <string name="mapview"> Visão do Mapa</string>
+        <string name="objectInfo">Informação do Objeto</string>
+        <string name="productName">Nome do Produto</string>
+        <string name="viewMap">Visualizar no mapa:</string>
+        <string name="back">Voltar</string>
+        <string name="first_qr_generate">Você tem certeza de que é o primeiro QR code?</string>
+        <string name="send">Enviar</string>
+        <string name="information">Informação!</string>
+        <string name="data_will_be_shown_here">dados serão exibidos aqui</string>
+        <string name="delete_certificate">Excluir Certificado</string>
+        <string name="are_you_sure_to_delete"> Você tem certeza que quer Excluir?</string>
+        <string name="delete">Excluir </string>
+        <string name="error">Erro</string>
+        <string name="ok">Ok</string>
+        <string name="are_you_sure_to_discard"> Você tem certeza que quer descartar?</string>
+        <string name="discard">Descartar</string>
+        <string name="discard_qr_code">Descartar QR Code</string>
+        <string name="sanning_qr_code">sanning QR code</string> **
+        <string name="are_you_sure_it_s_first_product"> Você tem certeza de que é o primeiro produto?</string>
+        <string name="yes">Sim</string>
+        <string name="no">Não</string>
+        <string name="product_data_is_valid">Dados do Produto Válidos</string>
+        <string name="update_product">Atualizar Produto</string>
+        <string name="processes_and_actions">Processos e Ações</string>
+        <string name="consumer">Consumidor</string>
+        <string name="add_action">Adicionar Ação</string>
+        <string name="create">Criar</string>
+        <string name="new_product_tag">Nova Tag de Produto</string>
+        <string name="scan_qr_code">Escanear Qr Code</string>
+        <string name="login">Entrar</string>
+        <string name="user_name">Usuário</string>
+        <string name="password">Senha</string>
+        <string name="go_to_qr">Ir para QR</string>
+        <string name="print_qr_code">Imprimir QR Code</string>
+        <string name="reister">Registrar</string>
+        <string name="new_producer">Novo Produtor</string>
+        <string name="printer">Impressora</string>
+        <string name="create_certificate">Criar Certificado</string>
+        <string name="item">Item</string>
+        <string name="bio">Bio</string>
+        <string name="sign_in"> Iniciar Sessão</string>
+        <string-array name="work_path_entries">
+        <item>Não Especificado</item>
+        <item>Pasta no Aplicativo</item>
+        <item>Pasta Externa</item>
+        </string-array>
+    <string name="button_bluetooth_settings">Configurações de Bluetooth</string>
+    <string name="button_network_settings">Configurações de Rede</string>
+    <string name="button_select_file">Selecionar Arquivo</string>
+    <string name="button_printer_status">Status da Impressora</string>
+    <string name="button_print">Imprimir</string>
+    <string name="setting_printer">Configurações Básicas</string>
+    <string name="printer_model_title">Modelo da Impressora</string>
+    <string name="printer_model_value">Selecionar Modelo da Impressora</string>
+    <string name="port_title">Porta</string>
+    <string name="port_value">Selecionar Porta</string>
+    <string name="printer_title">Impressora</string>
+    <string name="printer_text">Selecionar Impressora Destino</string>
+    <string name="paper_size_title">Tamanho do Papel</string>
+    <string name="paper_size_value">Selecionar Tamanho do Papel</string>
+    <string-array name="orientation">
+        <item>Retrato</item>
+        <item>Paisagem</item>
+    </string-array>
+    <string-array name="orientation_values"> ** ES: WILL NOT CHANGE THIS
+        <item>PORTRAIT</item>
+        <item>LANDSCAPE</item>
+    </string-array>
+    <string name="orientation_title">Orientação da Impressão</string>
+    <string name="orientation_value">Selecionar Orientação da Impressão</string>
+    <string name="number_of_copies_title">Número de Cópias</string>
+    <string name="number_of_copies_value">Definir Número de Cópias </string>
+    <string name="save_prn_path_title">Salvar arquivo prn</string>
+    <string name="save_prn_path_text">Selecione o destino</string>
+    <string name="otherSettings_title">Outras Configurações</string>
+    <string name="ip_mac_title">Endereço IP/MAC</string>
+    <string name="ip_mac_value">Definir Endereço IP/MAC </string>
+    <string name="address_title">Endereço IP</string>
+    <string name="address_value">Definir o  número do Endereço IP</string>
+    <string name="mac_address_title">Endereço MAC </string>
+    <string name="mac_address_value"> Definir o  número do Endereço MAC</string>
+    <string name="cut_settings_value">Definir as Configurações de Corte</string>
+    <string name="cut_settings_title">Configurações de Corte</string>
+    <string-array name="yes_no_entries">
+        <item>Sim</item>
+        <item>Não</item>
+    </string-array>
+    <string-array name="yes_no_value"> ** ES: WILL NOT CHANGE THIS
+        <item>true</item>
+        <item>false</item>
+    </string-array>
+    <string name="overwrite_title">Sobrescrever Arquivo </string>
+    <string name="overwrite_value">Selecionar o modo de sobrescrita</string>
+    <string name="is_auto_cut_title">Corte Automático</string>
+    <string name="is_auto_cut_value">Realizar corte automático ou não</string>
+    <string name="is_end_cut_title">Corte Final</string>
+    <string name="is_end_cut_value">Realizar corte final ou não</string>
+    <string name="half_cut_title">Meio Corte (Apenas PT)</string>
+    <string name="half_cut_value">Realizar meio corte final ou não </string>
+    <string name="special_tape_title">Papel Fita Especial (Apenas PT)</string>
+    <string name="special_tape_value">o papel fita é especial</string>
+    <string-array name="print_quality_array">
+        <item>BAIXA_RESOLUÇÃO</item>
+        <item>NORMAL</item>
+        <item>VELOCIDADE_DUPLA</item>
+        <item>ALTA_RESOLUÇÃO</item>
+    </string-array>
+    <string-array name="print_quality_value"> ** ES: WILL NOT CHANGE THIS
+        <item>LOW_RESOLUTION</item>
+        <item>NORMAL</item>
+        <item>DOUBLE_SPEED</item>
+        <item>HIGH_RESOLUTION</item>
+    </string-array>
+    <string name="print_quality_title">Qualidade da Impressão </string>
+    <string name="print_quality_value">Selecionar a qualidiade</string>
+    <string name="button_get">Obter</string>
+    <string name="button_update">Setar</string>
+
+
+    <string name="progress_dialog_message_preparing_connection">Preparando conexão…</string>
+    <string name="progress_dialog_message_createData">Gerando dados</string>
+    <string name="progress_dialog_message_sendingData">Enviando dados…</string>
+    <string name="progress_dialog_message_sendingPrintingData">Enviando dados…</string>
+    <string name="progress_dialog_message_startPrint">Imprimindo dados</string>
+    <string name="progress_dialog_message_dataSent">Dados enviados</string>
+    <string name="progress_dialog_message_printed">Processo de impressão completo</string>
+    <string name="progress_dialog_message_close_connection">Fechando contexão.</string>
+    <string name="progress_dialog_message_set_paper">Por favor selecione o papel</string>
+    <string name="progress_dialog_message_cooling_start">Início do resfriamento da impressora</string>
+    <string name="progress_dialog_message_cooling_end">Fim do resfriamento da impressora</string>
+    <string name="progress_dialog_message_waiting_peel">Espere pelo descaque do rótulo</string>
+    <string name="progress_dialog_message_sending_template">Transferindo Arquivo</string>
+    <string name="progress_dialog_message_getting_bluetooth_setting">Obtendo Configurações de Bluetooth </string>
+    <string name="progress_dialog_message_setting_bluetooth_setting">Transferindo configurações de Bluetooth </string>
+    <string name="progress_dialog_message_removing_template">Removendo Modelos</string>
+    <string name="progress_dialog_message_getting_template">Obtendo lista de modelos </string>
+    <string name="error_message_none">Sucesso</string>
+    <string name="error_message_runtime">Erro de execução</string>
+    <string name="search_printer">Procurando…</string>
+    <string name="cancel_printer_msg">Cancelando, aguarde</string>
+    <string name="error_message_weong_os">Android OS não suportado</string>
+
+    <string name="previousCodes">Tags Anteriores</string>
+    <string name="history">Histórico</string>
+    <string name="generate_qr_code">Gerando QR</string>
+    <string name="qr_is_ready">QR pronto para impressão!</string>
+    <string name="success">Sucesso</string>
+    <string name="qr_date">Data</string>
+    <string name="qr_time">Horário</string>
+    <string name="scan_message">Por favor escanear produto anterior!</string>
+    <string name="product_created">Tag do produto criada com sucesso!</string>
+    <string name="qr_creation_error">Erro encontrado durante geração do QR code!</string>
+    <string name="invalid_response">Resposta Inválida!</string>
+    <string name="try_again">Por favor tente novamente ou entre novamente!</string>
+    <string name="producer_created">Produtor criado com sucesso</string>
+    <string name="producer_creation_error"> Erro encontrado durante criação do produtor </string>
+    <string name="producer_name_error">Por favor informe o nome do produtor</string>
+    <string name="producer_certificate_error"> Por favor informe o nome do certificado</string>
+    <string name="producer_username_error"> Por favor informe o usuário do produtor</string>
+    <string name="producer_password_error">Por favor informe a senha do produtor</string>
+    <string name="producer_ethereum_error">Por favor informe o nome da conta Ethereum </string>
+    <string name="producer_url_error"> Por favor informe a url do website</string>
+    <string name="scan_new_qr">Escanear</string>
+    <string name="create_new_action_text">Criar Nova Ação</string>
+    <string name="action_name">Nome da ação</string>
+    <string name="create_action_settings">Criar</string>
+    <string name="create_new_certificate_text">Criar Novo Certifcado</string>
+    <string name="certificate_name">Nome do Certificado</string>
+    <string name="create_certificate_settings">Criar</string>
+    <string name="generate_qr_message"> Por favor gere o QR code antes de imprimir </string>
+    <string name="select_actions_msg">Por favor selecione uma ação!</string>
+</resources>

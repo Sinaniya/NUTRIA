@@ -1,0 +1,47 @@
+version: '3'
+services:
+
+  fc-server-aws:
+    container_name: fc-server-aws
+    restart: unless-stopped
+    env_file:
+      - Env/fc-server-aws.env
+    build:
+      dockerfile: Dockerfile
+      context: ./fc-server
+
+  fc-web-client-aws:
+    container_name: fc-web-client-aws
+    build:
+      dockerfile: Dockerfile
+      context: ./fc-web-client
+    volumes:
+      - /app/node_modules
+      - ./fc-web-client:/app
+    restart: unless-stopped
+
+  nginx:
+    container_name: nginx
+    restart: unless-stopped
+    image: nginx:1.15-alpine
+    volumes:
+      - ./fc-nginx/aws/data/nginx:/etc/nginx/conf.d
+      - ./fc-nginx/aws/data/certbot/conf:/etc/letsencrypt
+      - ./fc-nginx/aws/data/certbot/www:/var/www/certbot
+    ports:
+      - 80:80
+      - 443:443
+    depends_on:
+      - fc-server-aws
+      - fc-web-client-aws
+    command: "/bin/sh -c 'while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g \"daemon off;\"'"
+
+  certbot:
+    image: certbot/certbot
+    restart: unless-stopped
+    volumes:
+      - ./fc-nginx/aws/data/certbot/conf:/etc/letsencrypt
+      - ./fc-nginx/aws/data/certbot/www:/var/www/certbot
+    entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
+
+# run command:  docker-compose -f docker-compose.aws.yml up

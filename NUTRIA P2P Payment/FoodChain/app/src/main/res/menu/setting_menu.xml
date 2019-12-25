@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/nav_product"
+        android:icon="@drawable/star"
+        android:title="@string/product" />
+
+    <item
+        android:id="@+id/nav_scan"
+        android:icon="@drawable/scan"
+        android:title="@string/scanner" />
+
+    <item
+        android:id="@+id/nav_logout"
+        android:icon="@drawable/triangle"
+        android:title="@string/logout" />
+</menu>
